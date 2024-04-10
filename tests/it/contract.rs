@@ -94,18 +94,6 @@ async fn can_fetch_contract_source_code() {
     .await
 }
 
-#[tokio::test]
-#[serial]
-async fn can_get_error_on_unverified_contract() {
-    init_tracing();
-    run_with_client(Chain::mainnet(), |client| async move {
-        let addr = "0xb5c31a0e22cae98ac08233e512bd627885aa24e5".parse().unwrap();
-        let err = client.contract_source_code(addr).await.unwrap_err();
-        assert!(matches!(err, EtherscanError::ContractCodeNotVerified(_)));
-    })
-    .await
-}
-
 /// Query a contract that has a single string source entry instead of underlying JSON metadata.
 #[tokio::test]
 #[serial]

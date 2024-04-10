@@ -423,14 +423,6 @@ impl Client {
             self.create_query("contract", "getsourcecode", HashMap::from([("address", address)]));
         let response = self.get(&query).await?;
 
-        // Source code is not verified
-        if response.contains("Contract source code not verified") {
-            if let Some(ref cache) = self.cache {
-                cache.set_source(address, None);
-            }
-            return Err(EtherscanError::ContractCodeNotVerified(address));
-        }
-
         let response: Response<ContractMetadata> = self.sanitize_response(response)?;
         let result = response.result;
 
