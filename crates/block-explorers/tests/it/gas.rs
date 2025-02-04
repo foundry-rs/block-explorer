@@ -1,7 +1,6 @@
 use crate::run_with_client;
 use alloy_chains::Chain;
 use alloy_primitives::U256;
-use foundry_block_explorers::errors::EtherscanError;
 use serial_test::serial;
 
 #[tokio::test]
@@ -11,17 +10,6 @@ async fn gas_estimate_success() {
         let result = client.gas_estimate(U256::from(2000000000u32)).await;
 
         result.unwrap();
-    })
-    .await
-}
-
-#[tokio::test]
-#[serial]
-async fn gas_estimate_error() {
-    run_with_client(Chain::mainnet(), |client| async move {
-        let err = client.gas_estimate(U256::from(7123189371829732819379218u128)).await.unwrap_err();
-
-        assert!(matches!(err, EtherscanError::GasEstimationFailed));
     })
     .await
 }

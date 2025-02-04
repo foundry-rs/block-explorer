@@ -6,6 +6,8 @@ use serial_test::serial;
 /// Abi of [0x00000000219ab540356cBB839Cbe05303d7705Fa](https://api.etherscan.io/api?module=contract&action=getsourcecode&address=0x00000000219ab540356cBB839Cbe05303d7705Fa).
 const DEPOSIT_CONTRACT_ABI: &str = include!("../../test-data/deposit_contract.expr");
 
+// Ignoring since API key is invalid
+#[ignore]
 #[tokio::test]
 #[serial]
 async fn can_fetch_ftm_contract_abi() {
